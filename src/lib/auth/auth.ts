@@ -1,0 +1,44 @@
+import { createServerOnlyFn } from "@tanstack/react-start";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { betterAuth } from "better-auth/minimal";
+import { tanstackStartCookies } from "better-auth/tanstack-start";
+
+import { env } from "~/env/server";
+import { db } from "~/lib/db";
+
+const getAuthConfig = createServerOnlyFn(() =>
+  betterAuth({
+    baseURL: env.VITE_BASE_URL,
+    telemetry: {
+      enabled: false,
+    },
+    database: drizzleAdapter(db, {
+      provider: "pg",
+    }),
+
+    // https://www.better-auth.com/docs/integrations/tanstack#usage-tips
+    plugins: [tanstackStartCookies()],
+
+    // https://www.better-auth.com/docs/concepts/session-management#session-caching
+    session: {
+      cookieCache: {
+        enabled: true,
+        maxAge: 5 * 60, // 5 minutes
+      },
+    },
+
+    // https://www.better-auth.com/docs/concepts/oauth
+    socialProviders: {
+      google: {
+        clientId: env.GOOGLE_CLIENT_ID!,
+        clientSecret: env.GOOGLE_CLIENT_SECRET!,
+      },
+    },
+
+    experimental: {
+      joins: true,
+    },
+  }),
+);
+
+export const auth = getAuthConfig();

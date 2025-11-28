@@ -10,7 +10,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { SignOutButton } from "./SignOutButton";
 import { useQueryClient } from "@tanstack/react-query";
 import { authQueryOptions } from "~/lib/auth/queries";
 import authClient from "~/lib/auth/auth-client";
@@ -33,10 +32,10 @@ export function AppAvatar() {
                     </Avatar>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="py-2 ">
+            <DropdownMenuContent align="end" className="py-2">
                 <DropdownMenuLabel >
                     <div className="flex flex-col space-y-1">
-                        <p className="text-sm leading-none">{user.name}</p>
+                        <p className="text-sm">{user.name}</p>
                         <p className="text-muted-foreground text-xs">
                             {user.email}
                         </p>
@@ -44,7 +43,7 @@ export function AppAvatar() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                    <Link className="flex items-center gap-2 justify-center" to="/a/settings">
+                    <Link className="flex items-center gap-2 justify-center" to="/a/settings/profile">
                         <Settings />
                         Settings
                     </Link>

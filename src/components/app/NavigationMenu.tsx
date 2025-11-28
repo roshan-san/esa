@@ -9,7 +9,6 @@ export default function NavigationMenu() {
   const nav = [
     { name: "Dashboard", path: "/a/dashboard" },
     { name: "Explore", path: "/a/explore" },
-    { name: "Notifications", path: "/a/notifications" },
   ];
 
   return (

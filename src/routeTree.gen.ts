@@ -14,11 +14,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as authPagesLoginRouteImport } from './routes/(auth-pages)/login'
 import { Route as authenticatedARouteRouteImport } from './routes/(authenticated)/a/route'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as authenticatedASettingsIndexRouteImport } from './routes/(authenticated)/a/settings/index'
+import { Route as authenticatedASettingsRouteRouteImport } from './routes/(authenticated)/a/settings/route'
 import { Route as authenticatedANotificationsIndexRouteImport } from './routes/(authenticated)/a/notifications/index'
 import { Route as authenticatedAExploreIndexRouteImport } from './routes/(authenticated)/a/explore/index'
 import { Route as authenticatedADashboardIndexRouteImport } from './routes/(authenticated)/a/dashboard/index'
 import { Route as authenticatedASettingsProfileRouteImport } from './routes/(authenticated)/a/settings/profile'
+import { Route as authenticatedASettingsBillingRouteImport } from './routes/(authenticated)/a/settings/billing'
 
 const authenticatedRouteRoute = authenticatedRouteRouteImport.update({
   id: '/(authenticated)',
@@ -44,10 +45,10 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const authenticatedASettingsIndexRoute =
-  authenticatedASettingsIndexRouteImport.update({
-    id: '/settings/',
-    path: '/settings/',
+const authenticatedASettingsRouteRoute =
+  authenticatedASettingsRouteRouteImport.update({
+    id: '/settings',
+    path: '/settings',
     getParentRoute: () => authenticatedARouteRoute,
   } as any)
 const authenticatedANotificationsIndexRoute =
@@ -70,32 +71,40 @@ const authenticatedADashboardIndexRoute =
   } as any)
 const authenticatedASettingsProfileRoute =
   authenticatedASettingsProfileRouteImport.update({
-    id: '/settings/profile',
-    path: '/settings/profile',
-    getParentRoute: () => authenticatedARouteRoute,
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => authenticatedASettingsRouteRoute,
+  } as any)
+const authenticatedASettingsBillingRoute =
+  authenticatedASettingsBillingRouteImport.update({
+    id: '/billing',
+    path: '/billing',
+    getParentRoute: () => authenticatedASettingsRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a': typeof authenticatedARouteRouteWithChildren
   '/login': typeof authPagesLoginRoute
+  '/a/settings': typeof authenticatedASettingsRouteRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/a/settings/billing': typeof authenticatedASettingsBillingRoute
   '/a/settings/profile': typeof authenticatedASettingsProfileRoute
   '/a/dashboard': typeof authenticatedADashboardIndexRoute
   '/a/explore': typeof authenticatedAExploreIndexRoute
   '/a/notifications': typeof authenticatedANotificationsIndexRoute
-  '/a/settings': typeof authenticatedASettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a': typeof authenticatedARouteRouteWithChildren
   '/login': typeof authPagesLoginRoute
+  '/a/settings': typeof authenticatedASettingsRouteRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/a/settings/billing': typeof authenticatedASettingsBillingRoute
   '/a/settings/profile': typeof authenticatedASettingsProfileRoute
   '/a/dashboard': typeof authenticatedADashboardIndexRoute
   '/a/explore': typeof authenticatedAExploreIndexRoute
   '/a/notifications': typeof authenticatedANotificationsIndexRoute
-  '/a/settings': typeof authenticatedASettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -103,12 +112,13 @@ export interface FileRoutesById {
   '/(authenticated)': typeof authenticatedRouteRouteWithChildren
   '/(authenticated)/a': typeof authenticatedARouteRouteWithChildren
   '/(auth-pages)/login': typeof authPagesLoginRoute
+  '/(authenticated)/a/settings': typeof authenticatedASettingsRouteRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/(authenticated)/a/settings/billing': typeof authenticatedASettingsBillingRoute
   '/(authenticated)/a/settings/profile': typeof authenticatedASettingsProfileRoute
   '/(authenticated)/a/dashboard/': typeof authenticatedADashboardIndexRoute
   '/(authenticated)/a/explore/': typeof authenticatedAExploreIndexRoute
   '/(authenticated)/a/notifications/': typeof authenticatedANotificationsIndexRoute
-  '/(authenticated)/a/settings/': typeof authenticatedASettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -116,35 +126,38 @@ export interface FileRouteTypes {
     | '/'
     | '/a'
     | '/login'
+    | '/a/settings'
     | '/api/auth/$'
+    | '/a/settings/billing'
     | '/a/settings/profile'
     | '/a/dashboard'
     | '/a/explore'
     | '/a/notifications'
-    | '/a/settings'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/a'
     | '/login'
+    | '/a/settings'
     | '/api/auth/$'
+    | '/a/settings/billing'
     | '/a/settings/profile'
     | '/a/dashboard'
     | '/a/explore'
     | '/a/notifications'
-    | '/a/settings'
   id:
     | '__root__'
     | '/'
     | '/(authenticated)'
     | '/(authenticated)/a'
     | '/(auth-pages)/login'
+    | '/(authenticated)/a/settings'
     | '/api/auth/$'
+    | '/(authenticated)/a/settings/billing'
     | '/(authenticated)/a/settings/profile'
     | '/(authenticated)/a/dashboard/'
     | '/(authenticated)/a/explore/'
     | '/(authenticated)/a/notifications/'
-    | '/(authenticated)/a/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -191,11 +204,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(authenticated)/a/settings/': {
-      id: '/(authenticated)/a/settings/'
+    '/(authenticated)/a/settings': {
+      id: '/(authenticated)/a/settings'
       path: '/settings'
       fullPath: '/a/settings'
-      preLoaderRoute: typeof authenticatedASettingsIndexRouteImport
+      preLoaderRoute: typeof authenticatedASettingsRouteRouteImport
       parentRoute: typeof authenticatedARouteRoute
     }
     '/(authenticated)/a/notifications/': {
@@ -221,28 +234,50 @@ declare module '@tanstack/react-router' {
     }
     '/(authenticated)/a/settings/profile': {
       id: '/(authenticated)/a/settings/profile'
-      path: '/settings/profile'
+      path: '/profile'
       fullPath: '/a/settings/profile'
       preLoaderRoute: typeof authenticatedASettingsProfileRouteImport
-      parentRoute: typeof authenticatedARouteRoute
+      parentRoute: typeof authenticatedASettingsRouteRoute
+    }
+    '/(authenticated)/a/settings/billing': {
+      id: '/(authenticated)/a/settings/billing'
+      path: '/billing'
+      fullPath: '/a/settings/billing'
+      preLoaderRoute: typeof authenticatedASettingsBillingRouteImport
+      parentRoute: typeof authenticatedASettingsRouteRoute
     }
   }
 }
 
-interface authenticatedARouteRouteChildren {
+interface authenticatedASettingsRouteRouteChildren {
+  authenticatedASettingsBillingRoute: typeof authenticatedASettingsBillingRoute
   authenticatedASettingsProfileRoute: typeof authenticatedASettingsProfileRoute
+}
+
+const authenticatedASettingsRouteRouteChildren: authenticatedASettingsRouteRouteChildren =
+  {
+    authenticatedASettingsBillingRoute: authenticatedASettingsBillingRoute,
+    authenticatedASettingsProfileRoute: authenticatedASettingsProfileRoute,
+  }
+
+const authenticatedASettingsRouteRouteWithChildren =
+  authenticatedASettingsRouteRoute._addFileChildren(
+    authenticatedASettingsRouteRouteChildren,
+  )
+
+interface authenticatedARouteRouteChildren {
+  authenticatedASettingsRouteRoute: typeof authenticatedASettingsRouteRouteWithChildren
   authenticatedADashboardIndexRoute: typeof authenticatedADashboardIndexRoute
   authenticatedAExploreIndexRoute: typeof authenticatedAExploreIndexRoute
   authenticatedANotificationsIndexRoute: typeof authenticatedANotificationsIndexRoute
-  authenticatedASettingsIndexRoute: typeof authenticatedASettingsIndexRoute
 }
 
 const authenticatedARouteRouteChildren: authenticatedARouteRouteChildren = {
-  authenticatedASettingsProfileRoute: authenticatedASettingsProfileRoute,
+  authenticatedASettingsRouteRoute:
+    authenticatedASettingsRouteRouteWithChildren,
   authenticatedADashboardIndexRoute: authenticatedADashboardIndexRoute,
   authenticatedAExploreIndexRoute: authenticatedAExploreIndexRoute,
   authenticatedANotificationsIndexRoute: authenticatedANotificationsIndexRoute,
-  authenticatedASettingsIndexRoute: authenticatedASettingsIndexRoute,
 }
 
 const authenticatedARouteRouteWithChildren =

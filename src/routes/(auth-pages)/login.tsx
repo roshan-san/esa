@@ -24,7 +24,7 @@ export const Route = createFileRoute('/(auth-pages)/login')({
 function LoginForm() {
   const { redirectUrl } = Route.useRouteContext();
   return (
-    <div className="flex flex-col p-6 gap-6 min-h-svh items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center p-6 gap-6 ">
       <GoogleButton redirectUrl={redirectUrl} />
     </div>
   );

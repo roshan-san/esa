@@ -5,7 +5,7 @@ import { authQueryOptions } from '~/lib/auth/queries';
 export const Route = createFileRoute('/(auth-pages)/login')({
   component: LoginForm,
   beforeLoad: async ({ context }) => {
-    const REDIRECT_URL = "/a";
+    const REDIRECT_URL = "/a/dashboard";
     const user = await context.queryClient.ensureQueryData({
       ...authQueryOptions(),
       revalidateIfStale: true,

@@ -23,7 +23,7 @@ export function SignOutButton() {
       type="button"
       className="w-fit"
       variant="destructive"
-      size="lg"
+      size="sm"
     >
       Sign out
     </Button>

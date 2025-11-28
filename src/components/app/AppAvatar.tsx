@@ -1,0 +1,81 @@
+import { Link, useRouteContext, useRouter } from "@tanstack/react-router";
+import { HelpCircle, LogOut, Settings, User } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import { Button } from "~/components/ui/button";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
+import { SignOutButton } from "./SignOutButton";
+import { useQueryClient } from "@tanstack/react-query";
+import { authQueryOptions } from "~/lib/auth/queries";
+import authClient from "~/lib/auth/auth-client";
+import { toast } from "sonner";
+
+export function AppAvatar() {
+    const { user } = useRouteContext({ from: "/(authenticated)/a" })
+    const queryClient = useQueryClient();
+    const router = useRouter();
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button className="relative h-10 w-10 rounded-full" variant="ghost">
+                    <Avatar>
+                        <AvatarImage
+                            alt={user.name}
+                            src={user.image!}
+                        />
+                        <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="py-2 ">
+                <DropdownMenuLabel >
+                    <div className="flex flex-col space-y-1">
+                        <p className="text-sm leading-none">{user.name}</p>
+                        <p className="text-muted-foreground text-xs">
+                            {user.email}
+                        </p>
+                    </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                    <Link className="flex items-center gap-2 justify-center" to="/a/settings">
+                        <Settings />
+                        Settings
+                    </Link>
+
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                    <HelpCircle />
+                    Help
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive">
+                    <LogOut />
+                    <div
+                        onClick={async () => {
+                            toast.info("Signing out...");
+                            await authClient.signOut({
+                                fetchOptions: {
+                                    onResponse: async () => {
+                                        // manually set to null to avoid unnecessary refetching
+                                        queryClient.setQueryData(authQueryOptions().queryKey, null);
+                                        await router.invalidate();
+                                    },
+                                },
+                            });
+                        }}
+                        className="w-fit"
+                    >
+                        Logout
+                    </div>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+}

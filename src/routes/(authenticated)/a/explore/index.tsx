@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Card } from '~/components/ui/card'
 
 export const Route = createFileRoute('/(authenticated)/a/explore/')({
   component: RouteComponent,
@@ -6,9 +7,9 @@ export const Route = createFileRoute('/(authenticated)/a/explore/')({
 
 function RouteComponent() {
   return (
-    <div className='flex-1 flex justify-center items-center'>
+    <Card className='flex-1 flex justify-center items-center'>
       to explore teh pitches of other startups , limited view for basic users 
-      
-    </div>
+
+    </Card>
   )
 }

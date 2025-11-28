@@ -20,8 +20,8 @@ export default function NavigationMenu() {
           className={cn(
             "px-4 py-1 rounded-2xl text-sm transition-all",
             isActive(item.path)
-              ? "bg-accent hover:text-accent-foreground font-semibold"
-              : "opacity-70"
+                  ? "bg-primary-foreground text-primary hover:opacity-90"
+                  : "opacity-70"
           )}
         >
           {item.name}

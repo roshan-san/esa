@@ -43,36 +43,31 @@ export function AppAvatar() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                    <Link className="flex items-center gap-2 justify-center" to="/a/settings/profile">
+                    <Link className="flex w-full items-center gap-2" to="/a/settings/profile">
                         <Settings />
                         Settings
                     </Link>
-
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                     <HelpCircle />
                     Help
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive">
+                <DropdownMenuItem onClick={async () => {
+                    toast.warning("Signing out...");
+                    await authClient.signOut({
+                        fetchOptions: {
+                            onResponse: async () => {
+                                // manually set to null to avoid unnecessary refetching
+                                queryClient.setQueryData(authQueryOptions().queryKey, null);
+                                await router.invalidate();
+                            },
+                        },
+                    });
+                }}
+                    className="w-full" variant="destructive">
                     <LogOut />
-                    <div
-                        onClick={async () => {
-                            toast.info("Signing out...");
-                            await authClient.signOut({
-                                fetchOptions: {
-                                    onResponse: async () => {
-                                        // manually set to null to avoid unnecessary refetching
-                                        queryClient.setQueryData(authQueryOptions().queryKey, null);
-                                        await router.invalidate();
-                                    },
-                                },
-                            });
-                        }}
-                        className="w-fit"
-                    >
-                        Logout
-                    </div>
+                    Logout
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

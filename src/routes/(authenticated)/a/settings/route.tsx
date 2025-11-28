@@ -24,7 +24,7 @@ function RouteComponent() {
               className={cn(
                 "px-2 py-2 rounded-xl text-sm text-center transition-all",
                 isActive(item.path)
-                  ? "bg-primary-foreground text-primary hover:scale-105"
+                  ? "bg-primary-foreground text-primary hover:opacity-90"
                   : "opacity-70"
               )}
             >

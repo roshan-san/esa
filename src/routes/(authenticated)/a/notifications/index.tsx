@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Card } from '~/components/ui/card'
 
 export const Route = createFileRoute('/(authenticated)/a/notifications/')({
   component: RouteComponent,
@@ -6,8 +7,8 @@ export const Route = createFileRoute('/(authenticated)/a/notifications/')({
 
 function RouteComponent() {
   return (
-    <div className='flex-1 flex justify-center items-center'>
+    <Card className='flex-1 flex justify-center items-center'>
       here all teh notifications will be shown
-    </div>
+    </Card>
   )
 }

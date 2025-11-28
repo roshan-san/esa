@@ -9,7 +9,7 @@ export default function Header() {
   const { pathname}= useLocation();
   const isActive = (path:string) => pathname.startsWith(path);
   return (
-    <div className="flex justify-between items-center text-2xl font-bold bg-orange rounded-2xl w-full">
+    <div className="flex justify-between items-center text-2xl rounded-xl w-full">
       <div className="flex items-center justify-center gap-2">
         <GitPullRequestArrowIcon className="h-6 w-6 font-bold" />
         <p className=" ">Engin</p>

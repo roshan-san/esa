@@ -12,16 +12,16 @@ export default function NavigationMenu() {
   ];
 
   return (
-    <div className="flex justify-center items-center gap-4">
+    <div className="flex items-center justify-center gap-4">
       {nav.map((item) => (
         <Link
           key={item.path}
           to={item.path}
           className={cn(
-            "px-4 py-1 rounded-2xl text-sm transition-all",
+            "rounded-2xl px-4 py-1 text-sm transition-all",
             isActive(item.path)
-                  ? "bg-primary-foreground text-primary hover:opacity-90"
-                  : "opacity-70"
+              ? "bg-primary-foreground text-primary hover:opacity-90"
+              : "opacity-70",
           )}
         >
           {item.name}

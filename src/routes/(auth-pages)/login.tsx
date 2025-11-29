@@ -1,8 +1,8 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
-import { GoogleButton } from '~/components/GoogleButton';
-import { authQueryOptions } from '~/lib/auth/queries';
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { GoogleButton } from "~/components/GoogleButton";
+import { authQueryOptions } from "~/lib/auth/queries";
 
-export const Route = createFileRoute('/(auth-pages)/login')({
+export const Route = createFileRoute("/(auth-pages)/login")({
   component: LoginForm,
   beforeLoad: async ({ context }) => {
     const REDIRECT_URL = "/a/dashboard";
@@ -19,12 +19,12 @@ export const Route = createFileRoute('/(auth-pages)/login')({
       redirectUrl: REDIRECT_URL,
     };
   },
-})
+});
 
 function LoginForm() {
   const { redirectUrl } = Route.useRouteContext();
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 gap-6 ">
+    <div className="flex min-h-screen items-center justify-center gap-6 p-6">
       <GoogleButton redirectUrl={redirectUrl} />
     </div>
   );

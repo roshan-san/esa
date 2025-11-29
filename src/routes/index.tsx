@@ -4,21 +4,24 @@ import { Suspense } from "react";
 import { SignOutButton } from "~/components/app/SignOutButton";
 import { ThemeToggle } from "~/components/theme-toggle";
 import { Button } from "~/components/ui/button";
+import { Spinner } from "~/components/ui/spinner";
 import { authQueryOptions } from "~/lib/auth/queries";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
+  ssr: false,
 });
 
 function HomePage() {
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-10 p-2">
-      <Suspense fallback={<div className="py-6">Loading user...</div>}>
+      <Suspense fallback={<Spinner className="animate-spin" />}>
         <UserAction />
       </Suspense>
 
       <div className="fixed top-4 right-4">
-          <ThemeToggle />
+        2
+        <ThemeToggle />
       </div>
     </div>
   );
@@ -26,7 +29,7 @@ function HomePage() {
 
 function UserAction() {
   const { data: user } = useSuspenseQuery(authQueryOptions());
-  
+
   return user ? (
     <div className="flex flex-col items-center gap-2">
       <p>Welcome back, {user.name}!</p>

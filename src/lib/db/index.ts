@@ -5,10 +5,13 @@ import { env } from "~/env/server";
 
 import * as schema from "~/lib/db/schema";
 
-const driver = postgres(env.DATABASE_URL);
+let driver: ReturnType<typeof postgres> | null = null;
 
-const getDatabase = createServerOnlyFn(() =>
-  drizzle({ client: driver, schema, casing: "snake_case" }),
-);
+const getDatabase = createServerOnlyFn(() => {
+  if (!driver) {
+    driver = postgres(env.DATABASE_URL);
+  }
+  return drizzle({ client: driver, schema, casing: "snake_case" });
+});
 
 export const db = getDatabase();

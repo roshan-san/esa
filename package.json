@@ -12,8 +12,6 @@
     "check-types": "tsc --noEmit",
     "check": "pnpm format && pnpm lint && pnpm check-types",
     "db": "drizzle-kit",
-    "deps": "pnpm dlx taze@latest -Ilw",
-    "deps:major": "pnpm dlx taze@latest major -Ilw",
     "ui": "pnpm dlx shadcn@latest add ",
     "auth:secret": "pnpm dlx @better-auth/cli@latest secret",
     "db:generate": "pnpm drizzle-kit generate",

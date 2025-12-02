@@ -11,7 +11,7 @@ export const Route = createFileRoute("/(authenticated)/a/dashboard/")({
 });
 
 function RouteComponent() {
-  const { user } = Route.useRouteContext()
+  const { user } = Route.useRouteContext();
   const mutation = useMutation({
     mutationFn: async () =>
       await createProfileFN({
@@ -19,29 +19,28 @@ function RouteComponent() {
           email: user.email,
           full_name: user.name,
           username: "highsaaka",
-          avatar_url: user.image
-        }
+          avatar_url: user.image,
+        },
       }),
     onSuccess: () => {
-      toast.success("PROFILE CREATED SUCCESFULLY")
+      toast.success("PROFILE CREATED SUCCESFULLY");
     },
     onError: (error) => {
-      toast.error("UNKNOWN ERROR OCCURED")
+      toast.error("UNKNOWN ERROR OCCURED");
       // only on dev
-      console.error(error)
-    }
-  })
+      console.error(error);
+    },
+  });
 
   return (
     <Card className="flex flex-1 items-center justify-center gap-2">
-      <Button 
+      <Button
         onClick={() => mutation.mutate()}
         disabled={mutation.isPending || mutation.isSuccess}
       >
-        {mutation.isPending && <Spinner className="animate-spin"/>}
+        {mutation.isPending && <Spinner className="animate-spin" />}
         create Profile
       </Button>
-
     </Card>
   );
 }

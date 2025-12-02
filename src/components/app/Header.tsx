@@ -12,17 +12,16 @@ export default function Header() {
     <div className="flex w-full items-center justify-between rounded-xl">
       <div className="flex items-center justify-center gap-2">
         <GitPullRequestArrowIcon className="h-5 w-5" />
-        <p className="tracking-tight font-semibold text-xl ">ENGIN</p>
+        <p className="text-xl font-semibold tracking-tight">ENGIN</p>
       </div>
       <NavigationMenu />
       <div className="flex items-center justify-center gap-2">
-        <Link to="/a/notifications"
+        <Link
+          to="/a/notifications"
           className={cn(
-            "flex items-center justify-center gap-2 rounded p-2 text-sm transition-all shadow-accent shadow-2xs",
-            "hover:bg-accent hover:text-accent-foreground",
-            isActive("/a/notifications")
-              ? "bg-accent text-accent-foreground"
-              : "bg-transparent text-secondary-foreground",
+            "text-muted-foreground flex items-center justify-center gap-2 p-2 text-sm transition-all",
+            "hover:text-foreground",
+            isActive("/a/notifications") && "text-foreground border-accent border-b-2",
           )}
         >
           <Bell className="h-4 w-4" />

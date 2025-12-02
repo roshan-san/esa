@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Card } from "~/components/ui/card";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 export const Route = createFileRoute("/(authenticated)/a/settings/billing")({
   component: RouteComponent,
@@ -7,8 +8,21 @@ export const Route = createFileRoute("/(authenticated)/a/settings/billing")({
 
 function RouteComponent() {
   return (
-    <Card className="col-span-9 flex items-center justify-center gap-2 rounded-xl p-2">
-      <p className="text-center">Manage subcription billing basic vs pro plans here.</p>
+    <Card className="col-span-9">
+      <CardHeader>
+        <CardTitle>Subscription</CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-2">
+        <div className="flex items-center justify-between border-b pb-3">
+          <div>
+            <p className="text-sm font-medium">Plan</p>
+            <p className="text-muted-foreground text-sm">Basic</p>
+          </div>
+          <Button variant="outline" size="sm">
+            Upgrade
+          </Button>
+        </div>
+      </CardContent>
     </Card>
   );
 }

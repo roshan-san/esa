@@ -1,5 +1,6 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
-import { Card } from "~/components/ui/card";
+import { CreditCard, User } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { cn } from "~/lib/utils";
 
 export const Route = createFileRoute("/(authenticated)/a/settings")({
@@ -11,28 +12,39 @@ function RouteComponent() {
   const isActive = (path: string) => pathname.startsWith(path);
 
   const nav = [
-    { name: "Profile", path: "/a/settings/profile" },
-    { name: "Billing", path: "/a/settings/billing" },
+    { name: "Profile", path: "/a/settings/profile", icon: User },
+    { name: "Billing", path: "/a/settings/billing", icon: CreditCard },
   ];
+
   return (
-    <Card className="grid flex-1 grid-cols-12 gap-2 p-2">
-      <Card className="col-span-3 flex flex-col gap-2 rounded-xl p-2">
-        {nav.map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className={cn(
-              "rounded-xl px-2 py-2 text-center text-sm transition-all",
-              isActive(item.path)
-                ? "bg-primary-foreground text-primary hover:opacity-90"
-                : "opacity-70",
-            )}
-          >
-            {item.name}
-          </Link>
-        ))}
+    <div className="grid flex-1 grid-cols-12 gap-2">
+      <Card className="col-span-3">
+        <CardHeader>
+          <CardTitle>Settings</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col">
+          {nav.map((item) => {
+            const Icon = item.icon;
+            const active = isActive(item.path);
+
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={cn(
+                  "text-muted-foreground flex items-center gap-2 p-2 text-sm transition-colors",
+                  "hover:text-foreground",
+                  active && "border-accent text-primary border-l-2 font-semibold",
+                )}
+              >
+                <Icon className="h-4 w-4" />
+                {item.name}
+              </Link>
+            );
+          })}
+        </CardContent>
       </Card>
       <Outlet />
-    </Card>
+    </div>
   );
 }

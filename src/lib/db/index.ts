@@ -1,17 +1,18 @@
-import { createServerOnlyFn } from "@tanstack/react-start";
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
-import { env } from "~/env/server";
+  import { createServerOnlyFn } from "@tanstack/react-start";
+  import { env } from "~/env/server";
+  import { drizzle } from "drizzle-orm/neon-http";
+  import { neon } from "@neondatabase/serverless";
 
-import * as schema from "~/lib/db/schema";
 
-let driver: ReturnType<typeof postgres> | null = null;
+  import * as schema from "~/lib/db/schema";
 
-const getDatabase = createServerOnlyFn(() => {
-  if (!driver) {
-    driver = postgres(env.DATABASE_URL);
-  }
-  return drizzle({ client: driver, schema, casing: "snake_case" });
-});
+  let driver: ReturnType<typeof neon> | null = null;
 
-export const db = getDatabase();
+  const getDatabase = createServerOnlyFn(() => {
+    if (!driver) {
+      driver = neon(env.DATABASE_URL);
+    }
+    return drizzle({ client: driver, schema, casing: "snake_case" });
+  });
+
+  export const db = getDatabase();

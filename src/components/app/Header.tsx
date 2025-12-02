@@ -9,17 +9,23 @@ export default function Header() {
   const { pathname } = useLocation();
   const isActive = (path: string) => pathname.startsWith(path);
   return (
-    <div className="flex w-full items-center justify-between rounded-xl text-2xl">
+    <div className="flex w-full items-center justify-between rounded-xl">
       <div className="flex items-center justify-center gap-2">
-        <GitPullRequestArrowIcon className="h-6 w-6 font-bold" />
-        <p>Engin</p>
+        <GitPullRequestArrowIcon className="h-5 w-5" />
+        <p className="tracking-tight font-semibold text-xl ">ENGIN</p>
       </div>
       <NavigationMenu />
       <div className="flex items-center justify-center gap-2">
-        <Link to="/a/notifications">
-          <Bell
-            className={cn("h-4 w-4", isActive("/a/notifications") && "fill-current")}
-          />
+        <Link to="/a/notifications"
+          className={cn(
+            "flex items-center justify-center gap-2 rounded p-2 text-sm transition-all shadow-accent shadow-2xs",
+            "hover:bg-accent hover:text-accent-foreground",
+            isActive("/a/notifications")
+              ? "bg-accent text-accent-foreground"
+              : "bg-transparent text-secondary-foreground",
+          )}
+        >
+          <Bell className="h-4 w-4" />
         </Link>
         <ThemeToggle />
         <AppAvatar />

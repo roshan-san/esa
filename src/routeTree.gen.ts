@@ -16,6 +16,7 @@ import { Route as authenticatedARouteRouteImport } from './routes/(authenticated
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as authenticatedASettingsRouteRouteImport } from './routes/(authenticated)/a/settings/route'
 import { Route as authenticatedANotificationsIndexRouteImport } from './routes/(authenticated)/a/notifications/index'
+import { Route as authenticatedAFeedIndexRouteImport } from './routes/(authenticated)/a/feed/index'
 import { Route as authenticatedAExploreIndexRouteImport } from './routes/(authenticated)/a/explore/index'
 import { Route as authenticatedADashboardIndexRouteImport } from './routes/(authenticated)/a/dashboard/index'
 import { Route as authenticatedASettingsProfileRouteImport } from './routes/(authenticated)/a/settings/profile'
@@ -57,6 +58,11 @@ const authenticatedANotificationsIndexRoute =
     path: '/notifications/',
     getParentRoute: () => authenticatedARouteRoute,
   } as any)
+const authenticatedAFeedIndexRoute = authenticatedAFeedIndexRouteImport.update({
+  id: '/feed/',
+  path: '/feed/',
+  getParentRoute: () => authenticatedARouteRoute,
+} as any)
 const authenticatedAExploreIndexRoute =
   authenticatedAExploreIndexRouteImport.update({
     id: '/explore/',
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/a/settings/profile': typeof authenticatedASettingsProfileRoute
   '/a/dashboard': typeof authenticatedADashboardIndexRoute
   '/a/explore': typeof authenticatedAExploreIndexRoute
+  '/a/feed': typeof authenticatedAFeedIndexRoute
   '/a/notifications': typeof authenticatedANotificationsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/a/settings/profile': typeof authenticatedASettingsProfileRoute
   '/a/dashboard': typeof authenticatedADashboardIndexRoute
   '/a/explore': typeof authenticatedAExploreIndexRoute
+  '/a/feed': typeof authenticatedAFeedIndexRoute
   '/a/notifications': typeof authenticatedANotificationsIndexRoute
 }
 export interface FileRoutesById {
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/(authenticated)/a/settings/profile': typeof authenticatedASettingsProfileRoute
   '/(authenticated)/a/dashboard/': typeof authenticatedADashboardIndexRoute
   '/(authenticated)/a/explore/': typeof authenticatedAExploreIndexRoute
+  '/(authenticated)/a/feed/': typeof authenticatedAFeedIndexRoute
   '/(authenticated)/a/notifications/': typeof authenticatedANotificationsIndexRoute
 }
 export interface FileRouteTypes {
@@ -132,6 +141,7 @@ export interface FileRouteTypes {
     | '/a/settings/profile'
     | '/a/dashboard'
     | '/a/explore'
+    | '/a/feed'
     | '/a/notifications'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/a/settings/profile'
     | '/a/dashboard'
     | '/a/explore'
+    | '/a/feed'
     | '/a/notifications'
   id:
     | '__root__'
@@ -157,6 +168,7 @@ export interface FileRouteTypes {
     | '/(authenticated)/a/settings/profile'
     | '/(authenticated)/a/dashboard/'
     | '/(authenticated)/a/explore/'
+    | '/(authenticated)/a/feed/'
     | '/(authenticated)/a/notifications/'
   fileRoutesById: FileRoutesById
 }
@@ -218,6 +230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authenticatedANotificationsIndexRouteImport
       parentRoute: typeof authenticatedARouteRoute
     }
+    '/(authenticated)/a/feed/': {
+      id: '/(authenticated)/a/feed/'
+      path: '/feed'
+      fullPath: '/a/feed'
+      preLoaderRoute: typeof authenticatedAFeedIndexRouteImport
+      parentRoute: typeof authenticatedARouteRoute
+    }
     '/(authenticated)/a/explore/': {
       id: '/(authenticated)/a/explore/'
       path: '/explore'
@@ -269,6 +288,7 @@ interface authenticatedARouteRouteChildren {
   authenticatedASettingsRouteRoute: typeof authenticatedASettingsRouteRouteWithChildren
   authenticatedADashboardIndexRoute: typeof authenticatedADashboardIndexRoute
   authenticatedAExploreIndexRoute: typeof authenticatedAExploreIndexRoute
+  authenticatedAFeedIndexRoute: typeof authenticatedAFeedIndexRoute
   authenticatedANotificationsIndexRoute: typeof authenticatedANotificationsIndexRoute
 }
 
@@ -277,6 +297,7 @@ const authenticatedARouteRouteChildren: authenticatedARouteRouteChildren = {
     authenticatedASettingsRouteRouteWithChildren,
   authenticatedADashboardIndexRoute: authenticatedADashboardIndexRoute,
   authenticatedAExploreIndexRoute: authenticatedAExploreIndexRoute,
+  authenticatedAFeedIndexRoute: authenticatedAFeedIndexRoute,
   authenticatedANotificationsIndexRoute: authenticatedANotificationsIndexRoute,
 }
 

@@ -2,7 +2,6 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { SignOutButton } from "~/components/app/SignOutButton";
-import { ThemeToggle } from "~/components/theme-toggle";
 import { Button } from "~/components/ui/button";
 import { Spinner } from "~/components/ui/spinner";
 import { authQueryOptions } from "~/lib/auth/queries";
@@ -18,11 +17,6 @@ function HomePage() {
       <Suspense fallback={<Spinner className="animate-spin" />}>
         <UserAction />
       </Suspense>
-
-      <div className="fixed top-4 right-4">
-        2
-        <ThemeToggle />
-      </div>
     </div>
   );
 }
@@ -34,7 +28,7 @@ function UserAction() {
     <div className="flex flex-col items-center gap-2">
       <p>Welcome back, {user.name}!</p>
       <Button type="button" asChild className="mb-2 w-fit" size="lg">
-        <Link to="/a">Go to Dashboard</Link>
+        <Link to="/a/dashboard">Go to Dashboard</Link>
       </Button>
       <div className="text-center text-xs sm:text-sm">
         Session user:

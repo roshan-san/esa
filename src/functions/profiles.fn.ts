@@ -1,26 +1,38 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createInsertSchema } from "drizzle-zod";
+import { eq } from "drizzle-orm";
 import { authMiddleware } from "~/lib/auth/middleware";
 import { db } from "~/lib/db";
 import { profileTable } from "~/lib/db/schema";
 
-const ProfileSchema = createInsertSchema(profileTable).omit({
-  id: true,
-});
+const ProfileSchema = createInsertSchema(profileTable)
+
+
+export const $getProfile = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  .handler(async ({ context }) => {
+    const { user } = context;
+    const [profile] = await db
+      .select()
+      .from(profileTable)
+      .where(eq(profileTable.id, user.id))
+      .limit(1);
+    return profile || null;
+  });
 
 export const createProfileFN = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .inputValidator(ProfileSchema)
+  .inputValidator(ProfileSchema.omit({ id: true , email: true, avatar_url: true }))
   .handler(async ({ data, context }) => {
     const { user } = context;
     const [returned] = await db
       .insert(profileTable)
       .values({
-        email: data.email,
-        full_name: data.full_name,
         id: user.id,
+        email: user.email,
+        full_name: data.full_name,
         username: data.username,
-        avatar_url: data.avatar_url,
+        avatar_url: user.image,
       })
       .returning();
     return returned;

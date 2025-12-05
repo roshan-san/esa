@@ -14,6 +14,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as authPagesLoginRouteImport } from './routes/(auth-pages)/login'
 import { Route as authenticatedARouteRouteImport } from './routes/(authenticated)/a/route'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as authenticatedOnboardNameRouteImport } from './routes/(authenticated)/onboard/name'
+import { Route as authenticatedOnboardLocationRouteImport } from './routes/(authenticated)/onboard/location'
 import { Route as authenticatedASettingsRouteRouteImport } from './routes/(authenticated)/a/settings/route'
 import { Route as authenticatedANotificationsIndexRouteImport } from './routes/(authenticated)/a/notifications/index'
 import { Route as authenticatedAFeedIndexRouteImport } from './routes/(authenticated)/a/feed/index'
@@ -46,6 +48,18 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const authenticatedOnboardNameRoute =
+  authenticatedOnboardNameRouteImport.update({
+    id: '/onboard/name',
+    path: '/onboard/name',
+    getParentRoute: () => authenticatedRouteRoute,
+  } as any)
+const authenticatedOnboardLocationRoute =
+  authenticatedOnboardLocationRouteImport.update({
+    id: '/onboard/location',
+    path: '/onboard/location',
+    getParentRoute: () => authenticatedRouteRoute,
+  } as any)
 const authenticatedASettingsRouteRoute =
   authenticatedASettingsRouteRouteImport.update({
     id: '/settings',
@@ -93,6 +107,8 @@ export interface FileRoutesByFullPath {
   '/a': typeof authenticatedARouteRouteWithChildren
   '/login': typeof authPagesLoginRoute
   '/a/settings': typeof authenticatedASettingsRouteRouteWithChildren
+  '/onboard/location': typeof authenticatedOnboardLocationRoute
+  '/onboard/name': typeof authenticatedOnboardNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/a/settings/billing': typeof authenticatedASettingsBillingRoute
   '/a/settings/profile': typeof authenticatedASettingsProfileRoute
@@ -106,6 +122,8 @@ export interface FileRoutesByTo {
   '/a': typeof authenticatedARouteRouteWithChildren
   '/login': typeof authPagesLoginRoute
   '/a/settings': typeof authenticatedASettingsRouteRouteWithChildren
+  '/onboard/location': typeof authenticatedOnboardLocationRoute
+  '/onboard/name': typeof authenticatedOnboardNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/a/settings/billing': typeof authenticatedASettingsBillingRoute
   '/a/settings/profile': typeof authenticatedASettingsProfileRoute
@@ -121,6 +139,8 @@ export interface FileRoutesById {
   '/(authenticated)/a': typeof authenticatedARouteRouteWithChildren
   '/(auth-pages)/login': typeof authPagesLoginRoute
   '/(authenticated)/a/settings': typeof authenticatedASettingsRouteRouteWithChildren
+  '/(authenticated)/onboard/location': typeof authenticatedOnboardLocationRoute
+  '/(authenticated)/onboard/name': typeof authenticatedOnboardNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/(authenticated)/a/settings/billing': typeof authenticatedASettingsBillingRoute
   '/(authenticated)/a/settings/profile': typeof authenticatedASettingsProfileRoute
@@ -136,6 +156,8 @@ export interface FileRouteTypes {
     | '/a'
     | '/login'
     | '/a/settings'
+    | '/onboard/location'
+    | '/onboard/name'
     | '/api/auth/$'
     | '/a/settings/billing'
     | '/a/settings/profile'
@@ -149,6 +171,8 @@ export interface FileRouteTypes {
     | '/a'
     | '/login'
     | '/a/settings'
+    | '/onboard/location'
+    | '/onboard/name'
     | '/api/auth/$'
     | '/a/settings/billing'
     | '/a/settings/profile'
@@ -163,6 +187,8 @@ export interface FileRouteTypes {
     | '/(authenticated)/a'
     | '/(auth-pages)/login'
     | '/(authenticated)/a/settings'
+    | '/(authenticated)/onboard/location'
+    | '/(authenticated)/onboard/name'
     | '/api/auth/$'
     | '/(authenticated)/a/settings/billing'
     | '/(authenticated)/a/settings/profile'
@@ -215,6 +241,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/auth/$'
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/(authenticated)/onboard/name': {
+      id: '/(authenticated)/onboard/name'
+      path: '/onboard/name'
+      fullPath: '/onboard/name'
+      preLoaderRoute: typeof authenticatedOnboardNameRouteImport
+      parentRoute: typeof authenticatedRouteRoute
+    }
+    '/(authenticated)/onboard/location': {
+      id: '/(authenticated)/onboard/location'
+      path: '/onboard/location'
+      fullPath: '/onboard/location'
+      preLoaderRoute: typeof authenticatedOnboardLocationRouteImport
+      parentRoute: typeof authenticatedRouteRoute
     }
     '/(authenticated)/a/settings': {
       id: '/(authenticated)/a/settings'
@@ -306,10 +346,14 @@ const authenticatedARouteRouteWithChildren =
 
 interface authenticatedRouteRouteChildren {
   authenticatedARouteRoute: typeof authenticatedARouteRouteWithChildren
+  authenticatedOnboardLocationRoute: typeof authenticatedOnboardLocationRoute
+  authenticatedOnboardNameRoute: typeof authenticatedOnboardNameRoute
 }
 
 const authenticatedRouteRouteChildren: authenticatedRouteRouteChildren = {
   authenticatedARouteRoute: authenticatedARouteRouteWithChildren,
+  authenticatedOnboardLocationRoute: authenticatedOnboardLocationRoute,
+  authenticatedOnboardNameRoute: authenticatedOnboardNameRoute,
 }
 
 const authenticatedRouteRouteWithChildren =
